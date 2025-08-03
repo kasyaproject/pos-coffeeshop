@@ -26,9 +26,7 @@ async function init() {
     // Base Route API
     app.get("/", (req, res) => {
       res.status(200).json({
-        status: 200,
         message: "Welcome to API for App POS Coffee by Andika Syamsiana",
-        data: [],
       });
     });
     // Import and Use Route API
