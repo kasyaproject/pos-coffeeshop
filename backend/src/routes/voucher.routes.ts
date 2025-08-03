@@ -10,20 +10,56 @@ router.post(
   "/voucher",
   [authMiddleware, aclMiddleware([ROLES.ADMIN])],
   voucherController.create
+  /*
+  #swagger.tags = ['Voucher']
+  #swagger.security = [{
+    "bearerAuth": {}
+  }]
+  #swagger.requestBody = {
+    required: true,
+    schema: {
+      $ref: "#/components/schemas/VoucherRequest"
+    }
+  }
+  */
 );
 
-router.get("/voucher", voucherController.findAll);
-router.get("/voucher/:id", voucherController.FindOne);
+router.get(
+  "/voucher",
+  voucherController.findAll
+  /*
+  #swagger.tags = ['Voucher']
+  */
+);
+router.get(
+  "/voucher/:id",
+  voucherController.FindOne
+  /*
+  #swagger.tags = ['Voucher']
+  */
+);
 
 router.put(
   "/voucher/:id",
   [authMiddleware, aclMiddleware([ROLES.ADMIN])],
   voucherController.update
+  /*
+  #swagger.tags = ['Voucher']
+  #swagger.security = [{
+    "bearerAuth": {}
+  }]
+  */
 );
 router.delete(
   "/voucher/:id",
   [authMiddleware, aclMiddleware([ROLES.ADMIN])],
   voucherController.delete
+  /*
+  #swagger.tags = ['Voucher']
+  #swagger.security = [{
+    "bearerAuth": {}
+  }]
+  */
 );
 
 export default router;

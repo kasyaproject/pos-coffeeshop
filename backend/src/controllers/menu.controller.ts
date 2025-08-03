@@ -79,6 +79,26 @@ export default {
     }
   },
 
+  async findByCategory(req: Request, res: Response) {
+    try {
+      const { categoryId } = req.params;
+
+      if (!isValidObjectId(categoryId)) {
+        return response.notFound(res, "Invalid category ID");
+      }
+
+      const result = await MenuModel.find({ category: categoryId });
+
+      // Cek jika tidak ada menu ditemukan
+      if (result.length === 0)
+        return response.notFound(res, "No menu found for this category");
+
+      response.success(res, result, "Success find one Menu");
+    } catch (error) {
+      response.error(res, error, "Failed findOne Menu");
+    }
+  },
+
   async update(req: Request, res: Response) {
     try {
       const { id } = req.params;

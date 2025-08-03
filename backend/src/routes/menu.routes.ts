@@ -11,18 +11,71 @@ router.post(
   "/menu",
   [authMiddleware, aclMiddleware([ROLES.ADMIN])],
   menuController.create
+  /*
+  #swagger.tags = ['Menu']
+  #swagger.security = [{
+    "bearerAuth": {}
+  }]
+  #swagger.requestBody = {
+    required: true,
+    schema: {
+      $ref: "#/components/schemas/MenuRequest"
+    }
+  }
+  */
 );
-router.get("/menu", menuController.findAll);
-router.get("/menu/:id", menuController.findOne);
+
+router.get(
+  "/menu",
+  menuController.findAll
+  /*
+  #swagger.tags = ['Menu']
+  */
+);
+
+router.get(
+  "/menu/:id",
+  menuController.findOne
+  /*
+  #swagger.tags = ['Menu']
+  */
+);
+
+router.get(
+  "/menu/:categoryId/category",
+  menuController.findByCategory
+  /*
+  #swagger.tags = ['Menu']
+  */
+);
+
 router.put(
   "/menu/:id",
   [authMiddleware, aclMiddleware([ROLES.ADMIN])],
   menuController.update
+  /*
+  #swagger.tags = ['Menu']
+  #swagger.security = [{
+    "bearerAuth": {}
+  }]
+  #swagger.requestBody = {
+    required: true,
+    schema: {
+      $ref: "#/components/schemas/MenuRequest"
+    }
+  }
+  */
 );
 router.delete(
   "/menu/:id",
   [authMiddleware, aclMiddleware([ROLES.ADMIN])],
   menuController.delete
+  /*
+  #swagger.tags = ['Menu']
+  #swagger.security = [{
+    "bearerAuth": {}
+  }]
+  */
 );
 
 export default router;

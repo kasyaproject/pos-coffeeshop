@@ -6,17 +6,50 @@ import aclMiddleware from "../middlewares/acl.middleware";
 
 const router = Express.Router();
 
-router.post("/review", reviewController.create);
-router.get("/review/:MenuId", reviewController.findAll);
+router.post(
+  "/review",
+  reviewController.create
+  /*
+  #swagger.tags = ['Review']
+  #swagger.security = [{
+    "bearerAuth": {}
+  }]
+  #swagger.requestBody = {
+    required: true,
+    schema: {
+      $ref: "#/components/schemas/ReviewRequest"
+    }
+  }
+  */
+);
+router.get(
+  "/review/:MenuId",
+  reviewController.findAll
+  /*
+  #swagger.tags = ['Review']
+  */
+);
 router.put(
   "/review/:id",
   [authMiddleware, aclMiddleware([ROLES.ADMIN])],
   reviewController.update
+  /*
+  #swagger.tags = ['Review']
+  #swagger.security = [{
+    "bearerAuth": {}
+  }]
+  */
 );
 router.delete(
   "/review/:id",
   [authMiddleware, aclMiddleware([ROLES.ADMIN])],
   reviewController.delete
+  /*
+  #swagger.tags = ['Review']
+  #swagger.security = [{
+    "bearerAuth": {}
+  }]
+  */
 );
 
 export default router;

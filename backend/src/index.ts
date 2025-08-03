@@ -12,6 +12,7 @@ import MenuRoute from "./routes/menu.routes";
 import ReviewRoute from "./routes/review.routes";
 import OrderRoute from "./routes/order.routes";
 import VoucherRoute from "./routes/voucher.routes";
+import docs from "./docs/route";
 
 async function init() {
   try {
@@ -40,6 +41,7 @@ async function init() {
       OrderRoute,
       VoucherRoute,
     ]);
+    docs(app); // Api Docs
 
     // Running Server
     app.listen(PORT, async () => {
