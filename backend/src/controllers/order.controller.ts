@@ -1,14 +1,81 @@
 import { Request, Response } from "express";
 import { isValidObjectId } from "mongoose";
 import { IPaginationQuery } from "../utils/interface";
-import OrderModel, { orderDTO, OrderStatus } from "../models/order.model";
+import OrderModel, {
+  orderDTO,
+  OrderStatus,
+  TypeOrder,
+} from "../models/order.model";
 import response from "../utils/response";
+import MenuModel from "../models/menu.models";
+import VoucherModel from "../models/voucher.model";
 
 export default {
   async create(req: Request, res: Response) {
     try {
-      await orderDTO.validate(req.body);
-      const result = await OrderModel.create(req.body);
+      const payload = {
+        ...req.body,
+      } as TypeOrder;
+
+      await orderDTO.validate(payload);
+
+      // Ambil semua ID menu dari item[]
+      const menuIds = payload.item.map((item) => item.menu);
+
+      // Ambil semua data menu dari database
+      const menus = await MenuModel.find({ _id: { $in: menuIds } });
+
+      // Cek apakah semua menu ditemukan
+      if (menus.length !== payload.item.length) {
+        return res.status(400).json({ message: "Some menus not found" });
+      }
+
+      // Buat ulang payload.item dengan data detail menu
+      const orderItems = payload.item.map((orderItem) => {
+        const menu = menus.find((m) => m._id.toString() === orderItem.menu);
+        if (!menu) throw new Error("Menu not found");
+
+        return {
+          menu: menu._id,
+          quantity: orderItem.quantity,
+          price: menu.price,
+          subtotal: menu.price * orderItem.quantity,
+        };
+      });
+
+      // Hitung total harga
+      const totalPembelian = orderItems.reduce(
+        (sum, item) => sum + item.subtotal,
+        0
+      );
+
+      // Jika ada voucher, cari dulu
+      let diskon = 0;
+      let voucherName = "";
+
+      if (payload.voucher) {
+        const vouchers = await VoucherModel.findOne({ kode: payload.voucher });
+
+        if (!vouchers) {
+          return res.status(400).json({ message: "Voucher not found" });
+        }
+
+        // Simpan nama voucher dan hitung diskon
+        voucherName = vouchers.kode;
+        diskon = (totalPembelian * (vouchers.diskon || 0)) / 100;
+      }
+
+      // Hitung total harga setelah diskon
+      const totalPrice = totalPembelian - diskon;
+
+      // Buat order di database
+      const result = await OrderModel.create({
+        cust: payload.cust,
+        item: orderItems,
+        totalPrice,
+        voucher: payload.voucher || "",
+        note: payload.note || "",
+      });
 
       response.success(res, result, "Success create order");
     } catch (error) {

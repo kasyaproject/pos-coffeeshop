@@ -11,6 +11,7 @@ import CategoryRoute from "./routes/category.routes";
 import MenuRoute from "./routes/menu.routes";
 import ReviewRoute from "./routes/review.routes";
 import OrderRoute from "./routes/order.routes";
+import VoucherRoute from "./routes/voucher.routes";
 
 async function init() {
   try {
@@ -39,6 +40,7 @@ async function init() {
       MenuRoute,
       ReviewRoute,
       OrderRoute,
+      VoucherRoute,
     ]);
 
     // Running Server

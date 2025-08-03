@@ -1,6 +1,5 @@
 import Express from "express";
-
-import menuController from "../controllers/menu.controller";
+import voucherController from "../controllers/voucher.controller";
 import authMiddleware from "../middlewares/auth.middleware";
 import aclMiddleware from "../middlewares/acl.middleware";
 import { ROLES } from "../utils/constant";
@@ -8,21 +7,23 @@ import { ROLES } from "../utils/constant";
 const router = Express.Router();
 
 router.post(
-  "/menu",
+  "/voucher",
   [authMiddleware, aclMiddleware([ROLES.ADMIN])],
-  menuController.create
+  voucherController.create
 );
-router.get("/menu", menuController.findAll);
-router.get("/menu/:id", menuController.findOne);
+
+router.get("/voucher", voucherController.findAll);
+router.get("/voucher/:id", voucherController.FindOne);
+
 router.put(
-  "/menu/:id",
+  "/voucher/:id",
   [authMiddleware, aclMiddleware([ROLES.ADMIN])],
-  menuController.update
+  voucherController.update
 );
 router.delete(
-  "/menu/:id",
+  "/voucher/:id",
   [authMiddleware, aclMiddleware([ROLES.ADMIN])],
-  menuController.delete
+  voucherController.delete
 );
 
 export default router;
