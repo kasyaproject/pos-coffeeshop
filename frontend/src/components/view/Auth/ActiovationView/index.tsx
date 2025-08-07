@@ -9,8 +9,7 @@ interface PropTypes {
 
 const ActiovationView = (props: PropTypes) => {
   const route = useRouter();
-
-  const { status = "success" } = props;
+  const { status } = props;
 
   return (
     <div className="flex flex-col items-center justify-center text-center">
