@@ -10,9 +10,15 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+@layer base {
+  html {
+    font-family: 'sf-pro', sans-serif;
+  }
+}
+
 @theme {
-  --color-secondary: #ffffff;
   --color-primary: #171415;
+  --color-secondary: #fbfbfb;
   --color-highlight: #D41B27;
 
   --font-body: sf-pro, sans-serif;
