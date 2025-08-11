@@ -13,6 +13,7 @@ import ReviewRoute from "./routes/review.routes";
 import OrderRoute from "./routes/order.routes";
 import VoucherRoute from "./routes/voucher.routes";
 import docs from "./docs/route";
+import errorMiddleware from "./middlewares/error.middleware";
 
 async function init() {
   try {
@@ -42,6 +43,10 @@ async function init() {
       VoucherRoute,
     ]);
     docs(app); // Api Docs
+
+    // Global error handler
+    app.use(errorMiddleware.serverRoute());
+    app.use(errorMiddleware.serverError());
 
     // Running Server
     app.listen(PORT, async () => {

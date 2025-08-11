@@ -52,6 +52,13 @@ interface IUpdatePassword {
   confirmPassword: string;
 }
 
+declare module "next-auth" {
+  interface Session {
+    user: IProfile;
+    accessToken?: string;
+  }
+}
+
 export type {
   ILogin,
   IRegister,

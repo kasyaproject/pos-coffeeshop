@@ -20,6 +20,34 @@ export async function middleware(request: NextRequest) {
     }
   }
 
+  // Setelah login
+  if (pathname.startsWith("/dashboard")) {
+    if (!token) {
+      const url = new URL("/auth/login", request.url);
+      url.searchParams.set("callbackUrl", encodeURI(request.url));
+      return NextResponse.redirect(url);
+    }
+    console.log("Role:", token?.user?.role);
+
+    if (token?.user?.role !== "admin") {
+      return NextResponse.redirect(new URL("/member/dashboard", request.url));
+    }
+
+    if (pathname === "/admin") {
+      return NextResponse.redirect(new URL("/admin/dashboard", request.url));
+    }
+  }
+
+  // Profile
+  if (pathname.startsWith("/profile")) {
+    if (!token) {
+      const url = new URL("/auth/login", request.url);
+      url.searchParams.set("callbackUrl", encodeURI(request.url));
+      return NextResponse.redirect(url);
+    }
+    console.log("Role:", token?.user?.role);
+  }
+
   // admin
   if (pathname.startsWith("/admin")) {
     if (!token) {

@@ -22,7 +22,7 @@ const ProfileMenu = () => {
       <MenubarMenu>
         <MenubarTrigger
           disabled={!!isLoadingProfile}
-          className="flex w-full items-center justify-between rounded-md px-1.5 py-1 hover:cursor-pointer hover:bg-gray-200"
+          className="flex w-full items-center justify-between rounded-md px-1.5 py-0.5 hover:cursor-pointer hover:bg-gray-200"
         >
           {/* Image */}
           <Avatar>
@@ -30,10 +30,10 @@ const ProfileMenu = () => {
               <AvatarImage
                 src={dataProfile?.profilePicture}
                 alt="profilePicture"
-                className="border border-gray-100"
+                className="border border-gray-100 rounded-full"
               />
             ) : (
-              <Skeleton className="h-12 w-12 rounded-full bg-gray-300" />
+              <Skeleton className="w-12 h-12 bg-gray-300 rounded-full" />
             )}
           </Avatar>
           {/* Detail */}
@@ -56,7 +56,7 @@ const ProfileMenu = () => {
         </MenubarTrigger>
 
         <MenubarContent
-          className="border-gray-300 bg-white"
+          className="bg-white border-gray-300"
           align="end"
           sideOffset={5}
           alignOffset={-90}
@@ -67,7 +67,7 @@ const ProfileMenu = () => {
               <AvatarImage
                 src={dataProfile?.profilePicture}
                 alt="profilePicture"
-                className="border border-gray-100"
+                className="border border-gray-100 rounded-full"
               />
             </Avatar>
             {/* Detail */}

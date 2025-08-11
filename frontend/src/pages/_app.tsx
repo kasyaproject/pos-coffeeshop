@@ -1,9 +1,9 @@
 import { Toaster } from "@/components/ui/sonner";
-import { onErrorHandler } from "@/libs/axios/responseHandler";
 import "@/styles/globals.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { SessionProvider } from "next-auth/react";
 import type { AppProps } from "next/app";
+import { onErrorHandler } from "@/libs/axios/responseHandler";
 
 const queryClient = new QueryClient({
   defaultOptions: {
