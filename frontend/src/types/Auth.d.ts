@@ -22,6 +22,7 @@ interface IActivation {
 
 // Menambahkan data ke User di interface
 interface UserExtended extends User {
+  id: string;
   accessToken?: string;
   role?: string;
 }
@@ -53,12 +54,19 @@ interface IUpdatePassword {
 }
 
 declare module "next-auth" {
-  interface Session {
-    user: IProfile;
+  interface Session extends SessionExtended {
+    user?: UserExtended;
+  }
+
+  interface User extends UserExtended {}
+}
+
+declare module "next-auth/jwt" {
+  interface JWT {
+    user?: User;
     accessToken?: string;
   }
 }
-
 export type {
   ILogin,
   IRegister,

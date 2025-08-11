@@ -21,7 +21,7 @@ const ProfileMenu = () => {
     <Menubar>
       <MenubarMenu>
         <MenubarTrigger
-          disabled={!!isLoadingProfile}
+          disabled={!dataProfile}
           className="flex w-full items-center justify-between rounded-md px-1.5 py-0.5 hover:cursor-pointer hover:bg-gray-200"
         >
           {/* Image */}
@@ -80,7 +80,7 @@ const ProfileMenu = () => {
           <hr className="border-gray-300" />
 
           <MenubarItem className="hover:cursor-pointer hover:bg-gray-50">
-            <Link href="/profile/_id">Profile Setting</Link>
+            <Link href={`/profile/${dataProfile?._id}`}>Profile Setting</Link>
           </MenubarItem>
 
           <hr className="border-gray-300" />

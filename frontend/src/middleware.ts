@@ -27,7 +27,7 @@ export async function middleware(request: NextRequest) {
       url.searchParams.set("callbackUrl", encodeURI(request.url));
       return NextResponse.redirect(url);
     }
-    console.log("Role:", token?.user?.role);
+    // console.log("Role:", token?.user?.role);
 
     if (token?.user?.role !== "admin") {
       return NextResponse.redirect(new URL("/member/dashboard", request.url));
@@ -45,7 +45,7 @@ export async function middleware(request: NextRequest) {
       url.searchParams.set("callbackUrl", encodeURI(request.url));
       return NextResponse.redirect(url);
     }
-    console.log("Role:", token?.user?.role);
+    // console.log("Role:", token?.user?.role);
   }
 
   // admin
@@ -56,7 +56,7 @@ export async function middleware(request: NextRequest) {
       return NextResponse.redirect(url);
     }
 
-    console.log("Role:", token?.user?.role);
+    // console.log("Role:", token?.user?.role);
 
     if (token?.user?.role !== "admin") {
       return NextResponse.redirect(new URL("/member/dashboard", request.url));

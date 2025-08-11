@@ -1,10 +1,10 @@
 import DashboardLayout from "@/components/layouts/DashboardLayout";
+import ProfileView from "@/components/view/ProfileView";
 import { useSession } from "next-auth/react";
-import React from "react";
 
 const ProfilePage = () => {
-  const { data: session } = useSession();
-  const role = session?.user?.role || "member"; // default guest kalau belum login
+const { data: session } = useSession();
+  const role = session?.user?.role || "member";
 
   return (
     <DashboardLayout
@@ -12,7 +12,7 @@ const ProfilePage = () => {
       desc="Manage your account details and personal settings."
       type={role}
     >
-      Profile Page
+      <ProfileView />
     </DashboardLayout>
   );
 };
