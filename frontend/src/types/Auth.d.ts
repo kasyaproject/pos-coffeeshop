@@ -30,6 +30,7 @@ interface UserExtended extends User {
 // Menambahkan data ke Session di interface
 interface SessionExtended extends Session {
   accessToken?: string;
+  user
 }
 
 // Menambahkan data ke jwt di interface
@@ -54,11 +55,16 @@ interface IUpdatePassword {
 }
 
 declare module "next-auth" {
-  interface Session extends SessionExtended {
-    user?: UserExtended;
+  interface User {
+    id: string;
+    accessToken?: string;
+    role?: string;
   }
 
-  interface User extends UserExtended {}
+  interface Session {
+    user: User;
+    accessToken?: string;
+  }
 }
 
 declare module "next-auth/jwt" {
@@ -67,6 +73,7 @@ declare module "next-auth/jwt" {
     accessToken?: string;
   }
 }
+
 export type {
   ILogin,
   IRegister,
