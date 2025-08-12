@@ -45,7 +45,6 @@ const doc = {
         fullname: "dika123123",
         username: "dika123123",
         email: "dika123123@gmail.com",
-        role: "admin // member",
         profilePicture: "fileUrl",
       },
       UpdatePasswordRequest: {

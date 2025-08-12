@@ -38,5 +38,35 @@ router.get(
       }]
      */
 );
+router.put(
+  "/auth/updateProfile",
+  authMiddleware,
+  authController.updateProfile
+  /*
+      #swagger.tags = ['Auth']
+      #swagger.security = [{
+        "bearerAuth": []
+      }]
+      #swagger.requestBody = {
+        required: true,
+        schema: {$ref: '#/components/schemas/UpdateProfileRequest'},
+      }
+     */
+);
+router.put(
+  "/auth/updatePassword",
+  authMiddleware,
+  authController.updatePassword
+  /*
+      #swagger.tags = ['Auth']
+      #swagger.security = [{
+        "bearerAuth": []
+      }]
+      #swagger.requestBody = {
+        required: true,
+        schema: {$ref: '#/components/schemas/UpdatePasswordRequest'},
+      }
+     */
+);
 
 export default router;
