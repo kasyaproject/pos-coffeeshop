@@ -1,5 +1,8 @@
 import { Request, Response } from "express";
-import UserModel, { userLoginDTO } from "../models/user.model";
+import UserModel, {
+  userLoginDTO,
+  userUpdatePasswordDTO,
+} from "../models/user.model";
 import response from "../utils/response";
 import { encrypt } from "../utils/encryption";
 import { generateToken } from "../utils/jwt";
@@ -80,6 +83,72 @@ export default {
     } catch (error) {
       // jika data tidak valid, return error
       response.error(res, error, "Failed Activated");
+    }
+  },
+
+  async updateProfile(req: IReqUser, res: Response) {
+    try {
+      const userId = req.user?.id;
+      const { fullname, username, email, profilePicture } = req.body;
+
+      const result = await UserModel.findByIdAndUpdate(
+        userId,
+        {
+          fullname,
+          username,
+          email,
+          profilePicture,
+        },
+        { new: true }
+      );
+
+      if (!result) return response.unauthorized(res, "User not found!");
+
+      response.success(res, result, "Profile updated successfully!");
+    } catch (error) {
+      response.error(res, error, "Failed to update profile");
+    }
+  },
+
+  async updatePassword(req: IReqUser, res: Response) {
+    try {
+      const userId = req.user?.id;
+      const { oldPassword, password, confirmPassword } = req.body;
+
+      // Validasi input dari req.body
+      await userUpdatePasswordDTO.validate({
+        oldPassword,
+        password,
+        confirmPassword,
+      });
+
+      // Ambil data user berdasarkan id
+      const user = await UserModel.findById(userId);
+
+      // Jika user tidak ditemukan dan old password tidak sesuai, return error
+      if (!user) return response.notFound(res, "User not found!");
+
+      if (user.password !== encrypt(oldPassword))
+        return response.notFound(res, "Old password is incorrect!");
+
+      if (password !== confirmPassword)
+        return response.error(
+          res,
+          null,
+          "New password and confirm password do not match!"
+        );
+
+      const result = await UserModel.findByIdAndUpdate(
+        userId,
+        {
+          password: encrypt(password),
+        },
+        { new: true }
+      );
+
+      response.success(res, result, "Password updated successfully!");
+    } catch (error) {
+      response.error(res, error, "Failed to update password user");
     }
   },
 };
