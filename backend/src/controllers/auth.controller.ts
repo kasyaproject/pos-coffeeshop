@@ -131,7 +131,7 @@ export default {
       if (user.password !== encrypt(oldPassword))
         return response.error(
           res,
-          { password: "Password must have at least one uppercase letter" },
+          { oldPassword: "Old password do not match!" },
           "Failed to update password user"
         );
 
