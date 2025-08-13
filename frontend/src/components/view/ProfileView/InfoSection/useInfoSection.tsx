@@ -53,7 +53,7 @@ const useInfoSection = (profileInfo?: IUpdateProfileInfo) => {
     });
 
   const handleUpdateProfile = (
-    data: IUpdateProfileInfo & Record<string, any>,
+    data: IUpdateProfileInfo & Record<string, unknown>,
   ) => {
     const { fullname, username, email } = data;
     mutateUpdateProfile({ fullname, username, email });

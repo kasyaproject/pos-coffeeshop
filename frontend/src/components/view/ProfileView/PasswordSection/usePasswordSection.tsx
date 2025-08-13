@@ -5,6 +5,7 @@ import { IUpdatePassword } from "@/types/Auth";
 import authServices from "@/services/auth.service";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
+import { IServerError } from "@/types/Error";
 
 const schemaUpdatePassword = yup.object().shape({
   oldPassword: yup.string().required("Please insert your old password"),
@@ -33,21 +34,21 @@ const usePasswordSection = () => {
     useMutation({
       mutationFn: (payload: IUpdatePassword) => updatePassword(payload),
       onError: (error: unknown) => {
-        // Pastikan error sesuai format API
-        const serverError = (error as { response?: { data?: any } })?.response
-          ?.data;
+        const serverError = (
+          error as { response?: { data?: IServerError<IUpdatePassword> } }
+        )?.response?.data;
 
-        // Loop semua key di IUpdatePassword
-        (
-          Object.keys(serverError?.data || {}) as (keyof IUpdatePassword)[]
-        ).forEach((field) => {
-          form.setError(field, {
-            type: "server",
-            message: serverError.data[field],
-          });
-        });
+        if (serverError?.data) {
+          (Object.keys(serverError.data) as (keyof IUpdatePassword)[]).forEach(
+            (field) => {
+              const message = serverError.data?.[field]; // sekarang TypeScript tahu ini string | undefined
+              if (message) {
+                form.setError(field, { type: "server", message });
+              }
+            },
+          );
+        }
 
-        // Toast untuk pesan umum
         toast.error("Update Password Failed", {
           description: serverError?.meta?.message || "Something went wrong 😢",
           duration: 3000,
