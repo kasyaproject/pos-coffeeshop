@@ -89,11 +89,18 @@ export default {
   async updateProfile(req: IReqUser, res: Response) {
     try {
       const userId = req.user?.id;
+      const { fullname, username, email, profilePicture } = req.body;
 
-      // Pisahkan _id dari req.body
-      const { _id, ...rest } = req.body;
-      // Ambil req.body yang akan dilakukan update
-      const { fullname, username, email, profilePicture } = rest;
+      // Cek apakah username sudah dipakai user lain
+      if (username) {
+        const existingUser = await UserModel.findOne({
+          username,
+          _id: { $ne: userId }, // exclude user yg sedang update
+        });
+        if (existingUser) {
+          return response.error(res, null, "Username already taken!");
+        }
+      }
 
       const result = await UserModel.findByIdAndUpdate(
         userId,
