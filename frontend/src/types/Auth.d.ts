@@ -30,7 +30,7 @@ interface UserExtended extends User {
 // Menambahkan data ke Session di interface
 interface SessionExtended extends Session {
   accessToken?: string;
-  user
+  user;
 }
 
 // Menambahkan data ke jwt di interface
@@ -40,12 +40,22 @@ interface JWTExtended extends JWT {
 
 interface IProfile {
   _id?: string;
-  email?: string;
   fullname?: string;
-  isActive?: boolean;
+  username?: string;
+  email?: string;
   profilePicture?: string | FileList;
   role?: string;
-  username?: string;
+  isActive?: boolean;
+}
+
+interface IUpdateProfileInfo {
+  fullname: string;
+  username: string;
+  email: string;
+}
+
+interface IUpdateProfilePicture {
+  profilePicture: string | FileList;
 }
 
 interface IUpdatePassword {
@@ -75,6 +85,7 @@ declare module "next-auth/jwt" {
 }
 
 export type {
+  IUpdateProfileInfo,
   ILogin,
   IRegister,
   IActivation,
@@ -82,5 +93,6 @@ export type {
   SessionExtended,
   JWTExtended,
   IProfile,
+  IUpdateProfilePicture,
   IUpdatePassword,
 };

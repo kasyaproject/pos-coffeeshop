@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { SessionProvider } from "next-auth/react";
 import type { AppProps } from "next/app";
 import { onErrorHandler } from "@/libs/axios/responseHandler";
+import { HeroUIProvider } from "@heroui/system";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -27,13 +28,15 @@ export default function App({
 }: AppProps) {
   return (
     <SessionProvider session={session}>
-      <QueryClientProvider client={queryClient}>
-        <Toaster position="top-center" richColors closeButton />
+      <HeroUIProvider>
+        <QueryClientProvider client={queryClient}>
+          <Toaster position="top-center" richColors closeButton />
 
-        <main>
-          <Component {...pageProps} />
-        </main>
-      </QueryClientProvider>
+          <main>
+            <Component {...pageProps} />
+          </main>
+        </QueryClientProvider>
+      </HeroUIProvider>
     </SessionProvider>
   );
 }

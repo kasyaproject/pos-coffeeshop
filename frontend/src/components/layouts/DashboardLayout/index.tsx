@@ -18,7 +18,7 @@ const DashboardLayout = (props: PropTypes) => {
     <SidebarProvider>
       <PageHead title={`POS CoffeShop | ${title}`} />
 
-      <div className="max-w-screen-3xl 3xl:container flex min-h-screen">
+      <div className="3xl:container flex min-h-screen w-full">
         <SidebarDashboard
           sidebarItems={type === "admin" ? SIDEBAR_ADMIN : SIDEBAR_MEMBER}
         />

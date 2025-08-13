@@ -1,6 +1,6 @@
-import { useRouter } from 'next/router';
-import { useQuery } from '@tanstack/react-query';
-import authServices from '@/services/auth.service';
+import { useRouter } from "next/router";
+import { useQuery } from "@tanstack/react-query";
+import authServices from "@/services/auth.service";
 
 const useProfileView = () => {
   const { isReady } = useRouter();
@@ -12,17 +12,16 @@ const useProfileView = () => {
     return data.data;
   };
 
-  const {
-    data: dataProfile,
-    refetch: refetchProfile,
-    isLoading: isLoadingProfile,
-  } = useQuery({
+  const { data: dataProfile, refetch: refetchProfile } = useQuery({
     queryKey: ["Profile"],
     queryFn: getProfile,
     enabled: isReady,
   });
 
-  return { dataProfile, refetchProfile, isLoadingProfile };
-}
+  return {
+    dataProfile,
+    refetchProfile,
+  };
+};
 
-export default useProfileView
+export default useProfileView;

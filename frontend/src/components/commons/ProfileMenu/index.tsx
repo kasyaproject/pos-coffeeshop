@@ -14,8 +14,7 @@ import { EllipsisVertical } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 
 const ProfileMenu = () => {
-  const { dataProfile, isLoadingProfile } = useProfileMenu();
-  console.log(dataProfile);
+  const { dataProfile } = useProfileMenu();
 
   return (
     <Menubar>
@@ -30,10 +29,10 @@ const ProfileMenu = () => {
               <AvatarImage
                 src={dataProfile?.profilePicture}
                 alt="profilePicture"
-                className="border border-gray-100 rounded-full"
+                className="rounded-full border border-gray-100"
               />
             ) : (
-              <Skeleton className="w-12 h-12 bg-gray-300 rounded-full" />
+              <Skeleton className="h-12 w-12 rounded-full bg-gray-300" />
             )}
           </Avatar>
           {/* Detail */}
@@ -56,7 +55,7 @@ const ProfileMenu = () => {
         </MenubarTrigger>
 
         <MenubarContent
-          className="bg-white border-gray-300"
+          className="border-gray-300 bg-white"
           align="end"
           sideOffset={5}
           alignOffset={-90}
@@ -67,7 +66,7 @@ const ProfileMenu = () => {
               <AvatarImage
                 src={dataProfile?.profilePicture}
                 alt="profilePicture"
-                className="border border-gray-100 rounded-full"
+                className="rounded-full border border-gray-100"
               />
             </Avatar>
             {/* Detail */}
