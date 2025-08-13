@@ -26,6 +26,7 @@ export default {
         meta: {
           status: 400,
           message,
+          data: { [`${error.path}`]: error.errors[0] },
         },
         data: { [`${error.path}`]: error.errors[0] },
       });
