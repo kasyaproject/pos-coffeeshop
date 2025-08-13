@@ -89,7 +89,11 @@ export default {
   async updateProfile(req: IReqUser, res: Response) {
     try {
       const userId = req.user?.id;
-      const { fullname, username, email, profilePicture } = req.body;
+
+      // Pisahkan _id dari req.body
+      const { _id, ...rest } = req.body;
+      // Ambil req.body yang akan dilakukan update
+      const { fullname, username, email, profilePicture } = rest;
 
       const result = await UserModel.findByIdAndUpdate(
         userId,
