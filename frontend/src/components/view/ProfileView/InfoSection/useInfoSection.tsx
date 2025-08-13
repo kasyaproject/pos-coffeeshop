@@ -4,7 +4,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import useProfileView from "../useProfileView";
-import { useRouter } from "next/router";
 import authServices from "@/services/auth.service";
 import { IUpdateProfileInfo } from "@/types/Auth";
 
@@ -15,7 +14,6 @@ const schemaUpdateInfo = yup.object().shape({
 });
 
 const useInfoSection = (profileInfo?: IUpdateProfileInfo) => {
-  const { query } = useRouter();
   const { refetchProfile } = useProfileView();
 
   const form = useForm<IUpdateProfileInfo>({
@@ -38,7 +36,7 @@ const useInfoSection = (profileInfo?: IUpdateProfileInfo) => {
   const { mutate: mutateUpdateProfile, isPending: isPendingUpdateProfile } =
     useMutation({
       mutationFn: (payload: IUpdateProfileInfo) => updateProfile(payload),
-      onError: (error: any) => {
+      onError: (error) => {
         toast.error("Update Profile Failed", {
           description: error.message + " 😢",
           duration: 3000,

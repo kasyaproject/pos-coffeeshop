@@ -32,8 +32,10 @@ const usePasswordSection = () => {
   const { mutate: mutateUpdatePassword, isPending: isPendingUpdatePassword } =
     useMutation({
       mutationFn: (payload: IUpdatePassword) => updatePassword(payload),
-      onError: (error: any) => {
-        const serverError = error?.response?.data;
+      onError: (error: unknown) => {
+        // Pastikan error sesuai format API
+        const serverError = (error as { response?: { data?: any } })?.response
+          ?.data;
 
         // Loop semua key di IUpdatePassword
         (

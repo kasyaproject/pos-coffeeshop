@@ -25,7 +25,7 @@ const useImageSection = () => {
     isSuccess: isSuccessUpdateProfile,
   } = useMutation({
     mutationFn: (payload: IProfile) => updateProfile(payload),
-    onError: (error: any) => {
+    onError: (error) => {
       toast.error("Update Profile Failed", {
         description: error.message + " 😢",
         duration: 3000,
