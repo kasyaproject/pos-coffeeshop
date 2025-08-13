@@ -129,7 +129,11 @@ export default {
       if (!user) return response.notFound(res, "User not found!");
 
       if (user.password !== encrypt(oldPassword))
-        return response.notFound(res, "Old password is incorrect!");
+        return response.error(
+          res,
+          { password: "Password must have at least one uppercase letter" },
+          "Failed to update password user"
+        );
 
       if (password !== confirmPassword)
         return response.error(
