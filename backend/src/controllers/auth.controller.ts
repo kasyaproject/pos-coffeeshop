@@ -92,15 +92,16 @@ export default {
       const { fullname, username, email, profilePicture } = req.body;
 
       // Cek apakah username sudah dipakai user lain
-      if (username) {
-        const existingUser = await UserModel.findOne({
-          username,
-          _id: { $ne: userId }, // exclude user yg sedang update
-        });
-        if (existingUser) {
-          return response.error(res, null, "Username already taken!");
-        }
-      }
+      // if (username) {
+      //   const existingUser = await UserModel.findOne({
+      //     username,
+      //     email,
+      //     _id: { $ne: userId }, // exclude user yg sedang update
+      //   });
+      //   if (existingUser) {
+      //     return response.error(res, null, "Username already taken!");
+      //   }
+      // }
 
       const result = await UserModel.findByIdAndUpdate(
         userId,
