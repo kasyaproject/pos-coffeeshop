@@ -52,11 +52,10 @@ const useInfoSection = (profileInfo?: IUpdateProfileInfo) => {
       },
     });
 
-  const handleUpdateProfile = (
-    data: IUpdateProfileInfo & Record<string, unknown>,
-  ) => {
-    const { fullname, username, email } = data;
-    mutateUpdateProfile({ fullname, username, email });
+  const handleUpdateProfile = (data: IUpdateProfileInfo) => {
+    // ambil semua field kecuali _id jika ada
+    const { ...payload } = data;
+    mutateUpdateProfile(payload);
   };
 
   return {
