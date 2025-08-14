@@ -23,7 +23,7 @@ const LoginView = () => {
   const toggleVisibilityPass = () => setIsVisiblePass(!isVisiblePass);
 
   return (
-    <div className="flex w-full flex-col items-center justify-center rounded-lg border bg-white p-6 shadow-lg lg:w-sm">
+    <div className="flex w-full flex-col items-center justify-center rounded-lg border bg-white p-6 shadow-lg sm:w-full lg:w-sm">
       <div className="mb-10 flex flex-col items-center justify-center">
         <AspectRatio
           ratio={16 / 9}

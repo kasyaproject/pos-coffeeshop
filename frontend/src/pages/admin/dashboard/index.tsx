@@ -1,5 +1,6 @@
 import React from "react";
 import DashboardLayout from "@/components/layouts/DashboardLayout";
+import DashboardView from "@/components/view/Admin/DashboardView";
 
 const DashboardPage = () => {
   return (
@@ -8,7 +9,7 @@ const DashboardPage = () => {
       desc="A quick overview of sales performance, stock levels, and recent POS activities."
       type="admin"
     >
-      Admin Dashboard Page
+      <DashboardView />
     </DashboardLayout>
   );
 };

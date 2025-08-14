@@ -21,7 +21,7 @@ const ImageSection = (props: PropTypes) => {
     isPendingUploadFile,
     isPendingUpdateProfile,
     isSuccessUpdateProfile,
-  } = useImageSection();
+  } = useImageSection(currentPicture);
 
   const [dataPicture, setDataPicture] = useState<string>(currentPicture);
   const [dataFile, setDataFile] = useState<FileList>();

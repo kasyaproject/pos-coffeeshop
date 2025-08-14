@@ -29,11 +29,11 @@ export async function middleware(request: NextRequest) {
     }
     // console.log("Role:", token?.user?.role);
 
-    if (token?.user?.role !== "admin") {
+    if (token?.user?.role == "member") {
       return NextResponse.redirect(new URL("/member/dashboard", request.url));
     }
 
-    if (pathname === "/admin") {
+    if (token?.user?.role == "admin") {
       return NextResponse.redirect(new URL("/admin/dashboard", request.url));
     }
   }

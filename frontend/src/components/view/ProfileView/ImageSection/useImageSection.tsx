@@ -6,8 +6,9 @@ import { toast } from "sonner";
 import useProfileView from "../useProfileView";
 import authServices from "@/services/auth.service";
 
-const useImageSection = () => {
-  const { handleUploadFile, isPendingUploadFile } = useMediaHandling();
+const useImageSection = (currentPicture: string) => {
+  const { handleUploadFile, handleDeleteFile, isPendingUploadFile } =
+    useMediaHandling();
   const { refetchProfile } = useProfileView();
   const form = useForm<{ picture: FileList }>();
 
@@ -45,8 +46,21 @@ const useImageSection = () => {
     handleUploadFile(files, async (fileUrl?: string) => {
       if (!fileUrl) return;
 
-      // Update profile picture di backend
+      // 1️⃣ Hapus foto lama dulu kalau ada
+      if (currentPicture) {
+        await handleDeletePicture(currentPicture);
+      }
+
+      // 2️⃣ Update foto profil di backend
       await mutateUpdateProfileAsync({ profilePicture: fileUrl });
+    });
+  };
+
+  const handleDeletePicture = (fileUrl: string) => {
+    return new Promise((resolve) => {
+      handleDeleteFile(fileUrl, () => {
+        resolve(true); // selesai hapus
+      });
     });
   };
 

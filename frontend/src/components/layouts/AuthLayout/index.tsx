@@ -25,7 +25,7 @@ const AuthLayout = (props: PropTypes) => {
 
       <PageHead title={title} />
 
-      <section className="max-w-screen-3xl 3xl:container flex p-3 max-md:w-full lg:p-6">
+      <section className="flex w-full max-w-sm p-3 sm:mx-10 md:mx-10 lg:max-w-lg lg:p-6">
         {children}
       </section>
     </div>
