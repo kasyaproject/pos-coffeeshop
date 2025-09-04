@@ -11,7 +11,7 @@ const LandingLayout = (props: PropTypes) => {
   const { title, children } = props;
 
   return (
-    <div className="relative flex min-h-screen min-w-full flex-col items-center justify-center gap-10 py-10 lg:py-0">
+    <div className="relative min-h-screen w-full">
       <div className="absolute inset-0 -z-10">
         <Image
           src="/img/bg-home.jpg"
@@ -24,9 +24,7 @@ const LandingLayout = (props: PropTypes) => {
 
       <PageHead title={title} />
 
-      <section className="max-w-screen-3xl 3xl:container flex p-6">
-        {children}
-      </section>
+      <section>{children}</section>
     </div>
   );
 };

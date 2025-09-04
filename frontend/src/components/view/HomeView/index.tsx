@@ -10,7 +10,7 @@ const HomeView = () => {
   const session = useSession();
 
   return (
-    <div className="flex flex-col items-center justify-center text-center">
+    <div className="flex h-screen w-full flex-col items-center justify-center">
       <nav className="absolute top-0 right-10">
         {session.status === "authenticated" ? (
           <Button

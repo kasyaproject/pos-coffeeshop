@@ -9,10 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@heroui/card": "^2.2.23",
     "@heroui/spinner": "^2.2.21",
     "@heroui/system": "^2.4.20",
     "@heroui/theme": "^2.4.20",
     "@hookform/resolvers": "^5.2.1",
+    "@radix-ui/react-accordion": "^1.2.12",
     "@radix-ui/react-aspect-ratio": "^1.1.7",
     "@radix-ui/react-avatar": "^1.1.10",
     "@radix-ui/react-dialog": "^1.1.14",
