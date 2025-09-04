@@ -13,7 +13,7 @@ const OrderView = () => {
   const [searchMenu, setSearchMenu] = useState("");
   const [formData, setFormData] = useState({
     namaCust: "",
-    telpCust: "",
+    telpCust: "-",
   });
   const [cart, setCart] = useState<ICartItem[]>([]);
 
@@ -60,7 +60,7 @@ const OrderView = () => {
 
   return (
     <div className="min-h-screen w-full bg-white/50 shadow-md backdrop-blur-sm">
-      {!formData.namaCust && !formData.telpCust ? (
+      {formData.namaCust ? (
         <>
           {/* Header */}
           <div className="flex w-full items-center justify-between gap-6 rounded-lg bg-white px-4 py-2 shadow-md">
@@ -140,8 +140,17 @@ const OrderView = () => {
         <div className="flex min-h-screen w-full items-center justify-center p-4">
           <form
             onSubmit={handleSubmit}
-            className="mx-auto flex w-full max-w-xl flex-col rounded-lg bg-white p-8 shadow-lg"
+            className="mx-auto flex w-full max-w-lg flex-col rounded-lg bg-white px-8 pt-4 pb-8 shadow-lg"
           >
+            <Link href="/" className="mb-4 flex items-center justify-center">
+              <Image
+                src="/img/logo.png"
+                alt="logo"
+                className="w-32"
+                width={400}
+                height={400}
+              />
+            </Link>
             <h1 className="text-2xl font-bold">Create new order</h1>
             <p className="text-sm">
               Enter your name and number first to continue
@@ -158,15 +167,19 @@ const OrderView = () => {
               />
             </div>
 
-            <div className="mt-3">
+            <div className="my-3">
               <p className="ms-2">Customer Number</p>
               <Input
                 type="text"
                 name="telpCust"
                 placeholder="Enter your Number"
                 className="text-black"
-                required
               />
+              <span className="text-xs text-gray-500">
+                Your phone number will only be used to send the invoice and will
+                not be saved. This field is optional and does not need to be
+                filled in.
+              </span>
             </div>
 
             <Button
