@@ -5,6 +5,8 @@ import CartOrder from "./CartOrder";
 import { Button } from "@/components/ui/button";
 import MenuList from "./MenuList";
 import Image from "next/image";
+import { IMenu } from "@/types/Menu";
+import { ICartItem } from "@/types/Cart";
 
 const OrderView = () => {
   const [searchMenu, setSearchMenu] = useState("");
@@ -12,7 +14,7 @@ const OrderView = () => {
     namaCust: "",
     telpCust: "",
   });
-  const [cart, setCart] = useState<any[]>([]);
+  const [cart, setCart] = useState<ICartItem[]>([]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -26,7 +28,7 @@ const OrderView = () => {
   };
 
   // fungsi untuk menambah/menghapus item di cart
-  const handleAddToCart = (menu: any) => {
+  const handleAddToCart = (menu: IMenu) => {
     setCart((prevCart) => {
       const existing = prevCart.find((item) => item._id === menu._id);
       if (existing) {
@@ -34,7 +36,7 @@ const OrderView = () => {
         return prevCart.filter((item) => item._id !== menu._id);
       }
       // jika belum ada → tambahkan
-      return [...prevCart, { ...menu, qty: 1 }];
+      return [...prevCart, { ...menu, qty: 1, _id: menu._id! }];
     });
   };
 

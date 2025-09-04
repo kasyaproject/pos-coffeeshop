@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
+import { ICartItem } from "@/types/Cart";
 
 interface CartOrderProps {
-  cart: any[];
+  cart: ICartItem[];
   onIncreaseQty: (id: string) => void;
   onDecreaseQty: (id: string) => void;
 }
@@ -19,7 +20,7 @@ const CartOrder = ({ cart, onIncreaseQty, onDecreaseQty }: CartOrderProps) => {
         <p className="text-sm text-gray-500">Cart is empty</p>
       ) : (
         <ul className="space-y-2">
-          {cart.map((item: any) => (
+          {cart.map((item: ICartItem) => (
             <li
               key={item._id}
               className="flex items-center justify-between gap-2"

@@ -4,11 +4,12 @@ import CardMenu from "@/components/commons/CardMenu";
 import useMenuList from "./useMenuList";
 import { IMenu } from "@/types/Menu";
 import { ICategory } from "@/types/Category";
+import { ICartItem } from "@/types/Cart";
 
 interface PropTypes {
   searchMenu: string;
   onAddToCart?: (menu: IMenu) => void;
-  cart: any;
+  cart: ICartItem[];
 }
 
 const MenuList = (props: PropTypes) => {
@@ -61,7 +62,9 @@ const MenuList = (props: PropTypes) => {
       {/* Menu List */}
       <div className="grid grid-cols-2 gap-4 p-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
         {filteredMenu?.map((menu: IMenu) => {
-          const isInCart = cart.some((item: any) => item._id === menu._id);
+          const isInCart =
+            Array.isArray(cart) &&
+            cart.some((item: ICartItem) => item._id === menu._id);
 
           return (
             <CardMenu
