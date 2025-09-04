@@ -7,6 +7,7 @@ import MenuList from "./MenuList";
 import Image from "next/image";
 import { IMenu } from "@/types/Menu";
 import { ICartItem } from "@/types/Cart";
+import Link from "next/link";
 
 const OrderView = () => {
   const [searchMenu, setSearchMenu] = useState("");
@@ -64,7 +65,7 @@ const OrderView = () => {
           {/* Header */}
           <div className="flex w-full items-center justify-between gap-6 rounded-lg bg-white px-4 py-2 shadow-md">
             {/* Logo */}
-            <a href="/" className="flex items-center gap-2">
+            <Link href="/" className="flex items-center gap-2">
               <Image
                 src="/img/logo.png"
                 alt="logo"
@@ -73,7 +74,7 @@ const OrderView = () => {
                 height={400}
               />
               <p className="text-nowrap">Coffee Shop</p>
-            </a>
+            </Link>
 
             {/* Search */}
             <div className="relative mx-auto flex w-full max-w-4xl items-center">

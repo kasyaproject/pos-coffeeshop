@@ -9,7 +9,7 @@ interface CartOrderProps {
 
 const CartOrder = ({ cart, onIncreaseQty, onDecreaseQty }: CartOrderProps) => {
   const total = cart.reduce(
-    (acc: number, item: any) => acc + item.price * item.qty,
+    (acc: number, item: ICartItem) => acc + item.price * item.qty,
     0,
   );
 
